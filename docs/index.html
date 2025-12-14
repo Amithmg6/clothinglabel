@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Login & Dashboard</title>
+    <title>Clothing Care Dashboard Demo</title>
     <!-- Load Tailwind CSS via CDN for styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -12,18 +12,17 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f0f4f8; /* Light gray-blue background */
-            min-height: 10vh;
+            min-height: 100vh;
             display: flex;
-            align-items: center;
+            align-items: flex-start; /* Align to the top of the viewport */
             justify-content: center;
-            padding: 1rem;
+            padding: 2rem 1rem;
         }
-        /* Dashboard specific full-screen adjustments for desktop */
+        /* Dashboard Container Settings */
         #dashboardView {
             width: 100%;
-            max-width: 1400px;
-            padding: 0;
-            margin: 0;
+            max-width: 1200px; /* Adjusted max width for a large, comfortable view */
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
         /* Custom color for the upload button (a shade of green) */
         .bg-card-green {
@@ -54,123 +53,17 @@
 <body>
     
     <!-- ============================================== -->
-    <!-- 1. LOGIN VIEW CONTAINER -->
-    <!-- This view is visible by default -->
+    <!-- DASHBOARD VIEW CONTAINER (Now the main and only content) -->
     <!-- ============================================== -->
-    <div id="loginView" class="w-full max-w-md">
-        <div class="bg-white rounded-xl shadow-2xl p-8 sm:p-10 border border-gray-100">
-            <!-- Header -->
-            <div class="text-center mb-8">
-                <svg class="mx-auto h-12 w-auto text-primary-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3v-1m3-4a3 3 0 00-3 3v1m3-4a3 3 0 013-3h7a3 3 0 013 3v1"></path>
-                </svg>
-                <h2 class="mt-4 text-3xl font-extrabold text-gray-900">
-                    Sign in to your account
-                </h2>
-                <p class="mt-2 text-sm text-gray-text">
-                    Or <a href="#" class="font-medium text-primary-blue hover:text-primary-hover transition duration-150 ease-in-out">create a new account</a>
-                </p>
-            </div>
-
-            <form id="loginForm" class="space-y-6">
-                <!-- Message Box for Feedback -->
-                <div id="messageBox" class="hidden p-3 text-sm font-medium rounded-lg" role="alert"></div>
-
-                <!-- Email Input -->
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
-                    <div class="mt-1">
-                        <input id="email" name="email" type="email" autocomplete="email" required value="user@example.com"
-                               class="appearance-none block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-blue focus:border-primary-blue sm:text-sm transition">
-                    </div>
-                </div>
-
-                <!-- Password Input -->
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                    <div class="mt-1">
-                        <input id="password" name="password" type="password" autocomplete="current-password" required value="password123"
-                               class="appearance-none block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-blue focus:border-primary-blue sm:text-sm transition">
-                    </div>
-                </div>
-
-                <!-- Remember Me & Forgot Password -->
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <input id="remember-me" name="remember-me" type="checkbox"
-                               class="h-4 w-4 text-primary-blue border-gray-300 rounded focus:ring-primary-blue">
-                        <label for="remember-me" class="ml-2 block text-sm text-gray-900">
-                            Remember me
-                        </label>
-                    </div>
-
-                    <div class="text-sm">
-                        <a href="#" class="font-medium text-primary-blue hover:text-primary-hover transition duration-150 ease-in-out">
-                            Forgot your password?
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Sign In Button -->
-                <div>
-                    <button type="submit" id="signInButton"
-                            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-md text-lg font-medium text-white bg-primary-blue hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-blue transition duration-150 ease-in-out transform hover:scale-[1.005] active:scale-[0.995]">
-                        Sign In
-                    </button>
-                </div>
-            </form>
-
-            <!-- Social Login Buttons -->
-            <div class="mt-8">
-                <div class="relative">
-                    <div class="absolute inset-0 flex items-center">
-                        <div class="w-full border-t border-gray-300"></div>
-                    </div>
-                    <div class="relative flex justify-center text-sm">
-                        <span class="px-2 bg-white text-gray-500">
-                            Or continue with
-                        </span>
-                    </div>
-                </div>
-
-                <div class="mt-6 grid grid-cols-2 gap-3">
-                    <button
-                        class="w-full flex items-center justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition transform hover:scale-[1.005] active:scale-[0.995]">
-                        <svg class="h-5 w-5 mr-2" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill="#FFC107" d="M43.61 20.083H24V28h11.75c-1.173 3.619-3.79 6.223-7.585 7.828l-5.66 4.39A20.3 20.3 0 0042.843 24h-.002a19.96 19.96 0 00-1.23-4.075z"></path>
-                            <path fill="#4CAF50" d="M24 45.998c5.4 0 9.873-1.802 13.14-4.887l-5.66-4.39A12.007 12.007 0 0124 38c-6.227 0-11.523-4.228-13.435-9.914l-5.962 4.63A20.323 20.323 0 0024 45.998z"></path>
-                            <path fill="#1976D2" d="M10.565 28.086A12.007 12.007 0 0112 24c0-1.42.23-2.82.65-4.148L6.68 15.228A20.34 20.34 0 003.157 24h.002a20.057 20.057 0 001.378 8.44l5.962-4.354z"></path>
-                            <path fill="#F44336" d="M24 10.002c3.27 0 6.082 1.258 8.356 3.49l5.247-5.06A20.2 20.2 0 0024 3.157c-8.913 0-16.48 5.75-19.117 13.626l5.962 4.63C12.477 14.23 17.773 10.002 24 10.002z"></path>
-                        </svg>
-                        Google
-                    </button>
-                    <button
-                        class="w-full flex items-center justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition transform hover:scale-[1.005] active:scale-[0.995]">
-                        <svg class="h-5 w-5 mr-2" viewBox="0 0 512 512" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M305.12 344.4a29.17 29.17 0 01-18.72 26.31 30.64 30.64 0 01-28.72 0 29.17 29.17 0 01-18.72-26.31c-.56-2.61-.88-6.19-1.2-10.36.03-2.67.62-5.46 1.49-8.41a6.62 6.62 0 012-2.85c5-4.8 11.23-7.2 18.23-7.2h5.8c7 0 13.23 2.4 18.23 7.2a6.62 6.62 0 012 2.85c.87 2.95 1.46 5.74 1.49 8.41-.32 4.17-.64 7.75-1.2 10.36zM324.78 181.5c-15.68-1.76-32.49 13.25-41.22 13.25-9.45 0-25.59-13.88-40.85-13.88-21.24 0-41.92 12.33-51.53 30.41-25.13 47.9-5.91 113.63 15.65 146.43 10.21 15.93 21.6 34.69 36.31 34.69 13.16 0 20.31-10.48 40.83-10.48 20.25 0 26.54 10.51 40.83 10.51 15.25 0 26.65-18.76 36.87-34.66 17.58-27.4 23.3-51.5 24.5-54.89-1.39-.75-27.1-10.14-27.1-41.16 0-26.26 18.75-40.42 21.2-42.36-15.67-22.37-40.67-24.93-49.37-25.9zM256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 472.96c-119.83 0-216.96-97.13-216.96-216.96S136.17 39.04 256 39.04s216.96 97.13 216.96 216.96-97.13 216.96-216.96 216.96z" />
-                        </svg>
-                        Apple
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- ============================================== -->
-    <!-- 2. DASHBOARD VIEW CONTAINER -->
-    <!-- Hidden by default -->
-    <!-- ============================================== -->
-    <div id="dashboardView" class="hidden min-h-[80vh] bg-white rounded-xl shadow-2xl p-6 sm:p-10 border border-gray-100">
+    <div id="dashboardView" class="min-h-[80vh] bg-white rounded-xl p-6 sm:p-10 border border-gray-100">
         <!-- Dashboard Header -->
         <header class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-4 mb-6">
             <h1 class="text-3xl font-bold text-gray-900">
                 Welcome, <span id="userNameDisplay" class="text-primary-blue">User!</span>
             </h1>
-            <button onclick="logout()" 
-                    class="mt-4 sm:mt-0 px-4 py-2 text-sm font-medium text-white bg-red-500 rounded-lg shadow-md hover:bg-red-600 transition duration-150 transform hover:scale-[1.01] active:scale-[0.99]">
-                Logout
-            </button>
+            <p class="mt-4 sm:mt-0 px-4 py-2 text-sm font-medium text-gray-500 rounded-lg border border-gray-200 bg-gray-50">
+                Static Demo Mode
+            </p>
         </header>
 
         <!-- User Profile, Upload, & Info Section (Grid layout) -->
@@ -202,6 +95,8 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.863-1.293A2 2 0 0110.86 4h2.28a2 2 0 011.664.89l.863 1.293A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
                     </svg>
+                    <!-- File input hidden, trigger it via the button click -->
+                    <input type="file" id="labelFileInput" class="hidden" accept="image/*">
                     <button id="uploadLabelBtn" 
                             class="w-full py-3 px-4 bg-card-green text-white font-semibold rounded-lg shadow-md hover:bg-green-600 transition duration-150 transform hover:scale-[1.01] active:scale-[0.99]">
                         Upload Label Photo
@@ -213,10 +108,6 @@
             <!-- RIGHT COLUMNS: Quick Statistics Cards (Grid layout) -->
             <div class="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4" id="statsContainer">
                 <!-- Cards will be injected here by JavaScript -->
-                <div class="bg-gray-50 p-6 rounded-xl shadow-md border border-gray-200 animate-pulse h-32"></div>
-                <div class="bg-gray-50 p-6 rounded-xl shadow-md border border-gray-200 animate-pulse h-32"></div>
-                <div class="bg-gray-50 p-6 rounded-xl shadow-md border border-gray-200 animate-pulse h-32"></div>
-                <div class="bg-gray-50 p-6 rounded-xl shadow-md border border-gray-200 animate-pulse h-32"></div>
             </div>
         </div>
         
@@ -253,46 +144,25 @@
     </div>
     
     <!-- ============================================== -->
-    <!-- 3. JAVASCRIPT LOGIC -->
+    <!-- JAVASCRIPT LOGIC (Static Demo) -->
     <!-- ============================================== -->
     <script>
-        // Simulated User Data (to be loaded upon successful login)
+        // Simulated User Data
         const SIMULATED_USER = {
             name: "Alex Johnson",
             email: "alex.j@example.com",
             lastLogin: new Date().toLocaleString(),
             dashboardItems: [
-                // 'Pending Tasks' changed to 'Wardrobe'
-                { title: "Wardrobe", value: 5, icon: "list", color: "card-blue" },
+                { title: "Wardrobe Items", value: 5, icon: "list", color: "card-blue" },
                 { title: "Notifications", value: 3, icon: "bell", color: "card-red" },
-                // 'New Messages' changed to 'Shopping Offers'
                 { title: "Shopping Offers", value: 12, icon: "envelope", color: "card-green" },
-                // 'Storage Used' changed to 'Clothing Labels' and value is now a number
                 { title: "Clothing Labels", value: 150, icon: "hdd", color: "card-purple" },
             ]
         };
 
-        const loginView = document.getElementById('loginView');
-        const dashboardView = document.getElementById('dashboardView');
-        const messageBox = document.getElementById('messageBox');
         const statsContainer = document.getElementById('statsContainer');
-        const signInButton = document.getElementById('signInButton');
-
-        // Utility function to switch views
-        function showView(viewId) {
-            loginView.classList.add('hidden');
-            dashboardView.classList.add('hidden');
-            
-            if (viewId === 'dashboard') {
-                document.body.classList.remove('justify-center', 'items-center');
-                document.getElementById('dashboardView').classList.remove('hidden');
-                document.getElementById('dashboardView').classList.add('flex', 'flex-col');
-                renderDashboard(SIMULATED_USER);
-            } else {
-                document.body.classList.add('justify-center', 'items-center');
-                document.getElementById('loginView').classList.remove('hidden');
-            }
-        }
+        const uploadLabelBtn = document.getElementById('uploadLabelBtn');
+        const labelFileInput = document.getElementById('labelFileInput');
 
         // Function to render the dynamic parts of the dashboard
         function renderDashboard(user) {
@@ -303,9 +173,9 @@
             document.getElementById('lastLoginTime').textContent = user.lastLogin;
 
             // Render Stats Cards
-            statsContainer.innerHTML = ''; // Clear placeholders
+            statsContainer.innerHTML = ''; 
             user.dashboardItems.forEach(item => {
-                // Simple SVG icon generation (using Font Awesome names for context)
+                // Simple SVG icon path generation
                 let iconPath = '';
                 if (item.icon === 'list') {
                     iconPath = 'M3 10h18M3 14h18m-9-4v4m-9 4h18a2 2 0 002-2v-4a2 2 0 00-2-2H3a2 2 0 00-2 2v4a2 2 0 002 2z';
@@ -333,57 +203,47 @@
             });
         }
 
-        // Handle Logout
-        window.logout = function() {
-            showView('login');
-            messageBox.classList.add('hidden');
-            // Reset form fields
-            document.getElementById('password').value = 'password123';
-        }
+        // === Image Upload Logic (Demo) ===
 
-        // Handle Login Submission
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault(); 
-
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
-            
-            // Clear previous messages
-            messageBox.classList.add('hidden');
-            messageBox.textContent = '';
-            messageBox.className = 'hidden p-3 text-sm font-medium rounded-lg';
-
-            signInButton.disabled = true;
-            signInButton.textContent = 'Authenticating...';
-
-            // Simple validation check (simulating a network call delay)
-            setTimeout(() => {
-                signInButton.disabled = false;
-                signInButton.textContent = 'Sign In';
-
-                // NOTE: Using hardcoded credentials for this simulation.
-                if (email === SIMULATED_USER.email && password === 'password123') {
-                    // Success logic
-                    messageBox.classList.remove('hidden');
-                    messageBox.classList.add('bg-green-100', 'text-green-700', 'border-green-400');
-                    messageBox.textContent = `Welcome back, ${SIMULATED_USER.name.split(' ')[0]}!`;
-                    
-                    // Switch to the dashboard view
-                    setTimeout(() => {
-                        showView('dashboard');
-                    }, 500);
-
-                } else {
-                    // Failure logic
-                    messageBox.classList.remove('hidden');
-                    messageBox.classList.add('bg-red-100', 'text-red-700', 'border-red-400');
-                    messageBox.textContent = 'Invalid email or password. Please try again.';
-                }
-            }, 1000); // 1 second delay to simulate API response time
+        // 1. Trigger the hidden file input when the button is clicked
+        uploadLabelBtn.addEventListener('click', () => {
+            labelFileInput.click();
         });
 
-        // Initialize view to dashboard on load (changed from 'login' to 'dashboard')
-        showView('dashboard'); 
+        // 2. Handle file selection
+        labelFileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                console.log('File selected for upload:', file.name, file.type);
+                // In a real application, you would upload this file to Firebase Storage here.
+                alertUser(`Uploading ${file.name}... (This is a static demo. File is not saved.)`, 'success');
+
+                // Clear the input so the same file can be selected again
+                event.target.value = ''; 
+            }
+        });
+
+        // Custom alert box replacement (since window.alert is forbidden)
+        function alertUser(message, type) {
+            const alertBox = document.createElement('div');
+            const colorClass = type === 'success' ? 'bg-green-500' : 'bg-red-500';
+            
+            alertBox.className = `fixed top-5 right-5 z-50 p-4 rounded-lg shadow-xl text-white font-medium ${colorClass} transition-opacity duration-300`;
+            alertBox.textContent = message;
+
+            document.body.appendChild(alertBox);
+
+            // Automatically remove the alert after 3 seconds
+            setTimeout(() => {
+                alertBox.style.opacity = '0';
+                setTimeout(() => alertBox.remove(), 300);
+            }, 3000);
+        }
+
+        // Initialize the dashboard on page load
+        window.onload = () => {
+            renderDashboard(SIMULATED_USER);
+        };
     </script>
 </body>
 </html>
